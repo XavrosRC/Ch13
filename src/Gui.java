@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 public class Gui extends Application {
 
     public static void main(String[] args) {
-
         launch(args);
     }
 
@@ -25,6 +24,7 @@ public class Gui extends Application {
 
         primaryStage.setTitle("Registration");
 
+        // Making text to label GUI
         Text title = new Text();
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
         title.setText("Name of Event: \t\t\t\t  ");
@@ -32,8 +32,10 @@ public class Gui extends Application {
         number.setText("# of Attendees: ");
         number.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
 
+        // Adding text fields to HBox
         HBox label = new HBox(title, number);
 
+        // Creating labels and text fields for each event and adding to HBox
         Label label1 = new Label("General Admission Per Person ($875): \t\t\t   ");
         TextField field1 = new TextField();
         field1.setPromptText("#");
@@ -55,7 +57,7 @@ public class Gui extends Application {
 
         HBox keynoteSpeech = new HBox(label3, field3);
 
-        Label label4 = new Label("Introdution to E-commerce ($295):\t\t\t\t   ");
+        Label label4 = new Label("Introduction to E-commerce ($295):\t\t\t   ");
         TextField field4 = new TextField();
         field4.setPromptText("#");
         field4.setMaxWidth(30);
@@ -83,6 +85,7 @@ public class Gui extends Application {
 
         HBox networkSecurity = new HBox(label7, field7);
 
+        // Making total cost field and button for calculation
         TextField totalCost = new TextField();
         totalCost.setDisable(true);
         totalCost.setText("Total Cost");
@@ -90,13 +93,15 @@ public class Gui extends Application {
         Button button = new Button();
         button.setText("Calculate Total");
 
-        Separator seperate = new Separator(Orientation.HORIZONTAL);
+        // Making separator to organize fields
+        Separator separate = new Separator(Orientation.HORIZONTAL);
 
-
-        VBox layout = new VBox(label, generalRegistration, studentRegistration, seperate,
+        // Adding all HBox to a VBox to organize
+        VBox layout = new VBox(label, generalRegistration, studentRegistration, separate,
                 keynoteSpeech,  advancedJava, eCommerce, futureWeb, networkSecurity);
         layout.setPadding(new Insets(25));
 
+        // Creating action for button
         button.setOnAction(e -> {
             double total = Gui.calculateTotal(field1, field2, field3,
                     field4, field5, field6, field7);
@@ -104,6 +109,7 @@ public class Gui extends Application {
             totalCost.setText("The total price is $" + total);
         });
 
+        // Organizing button and output field
         VBox layoutTotal = new VBox(5);
         layoutTotal.setPadding(new Insets(10));
         layoutTotal.getChildren().addAll(button, totalCost);
@@ -112,17 +118,20 @@ public class Gui extends Application {
         top.setText("Please Fill Out The Conference Registration Form Below\n");
         top.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
 
+        // Adding VBox to BorderPane
         BorderPane mainLayout = new BorderPane();
         mainLayout.setTop(top);
         mainLayout.setLeft(layout);
         mainLayout.setBottom(layoutTotal);
 
+        // Setting window parameters
         Scene scene = new Scene(mainLayout, 380, 350);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }
 
+    // Input validation for textField
     public static int parseIntHelper(String s){
         try
         {
@@ -135,6 +144,7 @@ public class Gui extends Application {
         } return 0;
     }
 
+    // Calculating total cost
     public static double calculateTotal(TextField general, TextField student, TextField keynote,
                                         TextField commerce, TextField web, TextField java, TextField network) {
         double total = 0;
@@ -157,5 +167,4 @@ public class Gui extends Application {
 
         return total;
     }
-
 }
